@@ -1,18 +1,31 @@
-import { Header } from './components/header';
-import { Aluno } from './components/aluno';
-import { Footer } from './components/footer';
-
+import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
+  const [input, setInput] = useState('');
+  const [idade, setIdade] = useState('');
+  const [aluno, setAluno] = useState('');
+
+  function mostrarAluno() {
+    console.log(`testing ${input}`);
+    setAluno(input);
+  }
+
   return (
     <>
-      <Header title="Reactzão fiu" />
-      <h1>Meu Projeto</h1>
-      <Aluno nome="Luis Henrique" idade={25} />
-      <Aluno nome="Peppa Pig" idade={24} />
-      <Aluno nome="James Bond" idade={23} />
-      <Footer />
+      <div className="container">
+        <h1>Conhecendo useState</h1>
+        <input type="text" placeholder="Digite o nome" className="form-control" value={input} onChange={(e) => setInput(e.target.value)} />
+        <input type="text" placeholder="Digite a idade" className="form-control" value={idade} onChange={(e) => setIdade(e.target.value)} />
+        <button className="btn btn-primary" onClick={mostrarAluno}>Mostrar Aluno</button>
+
+        <hr />
+
+        {aluno && (
+          <h3>Bem vindo {aluno} {idade && `| idade: ${idade}`} </h3>
+        )}
+
+      </div>
     </>
   )
 }
-
