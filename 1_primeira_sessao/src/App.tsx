@@ -1,14 +1,27 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+interface InfoAlunoProps {
+  nome: string;
+  idade: string;
+}
+
 export default function App() {
   const [input, setInput] = useState('');
   const [idade, setIdade] = useState('');
-  const [aluno, setAluno] = useState('');
+
+  const [infoAluno, setAlunoInfo] = useState<InfoAlunoProps>();
+  const [contador, setContador] = useState(0);
 
   function mostrarAluno() {
-    console.log(`testing ${input}`);
-    setAluno(input);
+    if (!input || !idade) {
+
+      return;
+    }
+    setAlunoInfo({
+      nome: input,
+      idade: idade,
+    })
   }
 
   return (
@@ -21,10 +34,20 @@ export default function App() {
 
         <hr />
 
-        {aluno && (
-          <h3>Bem vindo {aluno} {idade && `| idade: ${idade}`} </h3>
+        {infoAluno && (
+          <h3>Bem vindo {infoAluno.nome} {infoAluno?.idade && `| idade: ${infoAluno.idade}`} </h3>
         )}
 
+        <hr />
+
+        <h1>Contador com UseState</h1>
+
+        <div className="d-flex align-items-center" style={{ gap: '10px' }}>
+          <button className='btn btn-primary py-1' onClick={() => setContador(valorAtual => valorAtual + 1)}>+</button>
+          <span>{contador}</span>
+          <button className='btn btn-primary py-1' onClick={() => setContador(valorAtual => (valorAtual > 0 ? valorAtual - 1 : valorAtual))}>-</button>
+
+        </div>
       </div>
     </>
   )
