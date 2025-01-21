@@ -1,54 +1,44 @@
-import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-interface InfoAlunoProps {
-  nome: string;
-  idade: string;
-}
+import { useState } from "react";
 
 export default function App() {
-  const [input, setInput] = useState('');
-  const [idade, setIdade] = useState('');
+    const [input, setInput] = useState('');
+    const [tasks, setTasks] = useState([
+        'Estudar React',
+        'Comprar pão',
+        'Estudar de noite'
+    ])
 
-  const [infoAluno, setAlunoInfo] = useState<InfoAlunoProps>();
-  const [contador, setContador] = useState(0);
+    function handleRegister() {
 
-  function mostrarAluno() {
-    if (!input || !idade) {
+        if (!input) return alert('Preencha o campo com a tarefa!')
 
-      return;
+        setTasks([...tasks, input])
+        setInput('')
     }
-    setAlunoInfo({
-      nome: input,
-      idade: idade,
-    })
-  }
 
-  return (
-    <>
-      <div className="container">
-        <h1>Conhecendo useState</h1>
-        <input type="text" placeholder="Digite o nome" className="form-control" value={input} onChange={(e) => setInput(e.target.value)} />
-        <input type="text" placeholder="Digite a idade" className="form-control" value={idade} onChange={(e) => setIdade(e.target.value)} />
-        <button className="btn btn-primary" onClick={mostrarAluno}>Mostrar Aluno</button>
+    function handleDelete(item: string) {
+        const removeTasks = tasks.filter(task => task !== item);
+        setTasks(removeTasks)
+    }
 
-        <hr />
+    return (
+        <>
+            <h1>Lista de tarefas</h1>
+            <hr />
+            <input className="form-control" type="text" placeholder="Digite a tarefa" value={input} onChange={(e) => setInput(e.target.value)} />
+            <button className="btn btn-primary" onClick={handleRegister}>Adicionar tarefa</button>
 
-        {infoAluno && (
-          <h3>Bem vindo {infoAluno.nome} {infoAluno?.idade && `| idade: ${infoAluno.idade}`} </h3>
-        )}
+            {tasks && (
+                <ul className="p-0 m-0">
+                    {tasks.map((item, index) => (
+                        <li key={index} className="d-flex align-items-center p-2 mb-1" style={{ gap: 10 }}>
+                            <span>{item}</span>
+                            <button className="btn btn-outline-primary" onClick={() => handleDelete(item)}>Deletar tarefa</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
 
-        <hr />
-
-        <h1>Contador com UseState</h1>
-
-        <div className="d-flex align-items-center" style={{ gap: '10px' }}>
-          <button className='btn btn-primary py-1' onClick={() => setContador(valorAtual => valorAtual + 1)}>+</button>
-          <span>{contador}</span>
-          <button className='btn btn-primary py-1' onClick={() => setContador(valorAtual => (valorAtual > 0 ? valorAtual - 1 : valorAtual))}>-</button>
-
-        </div>
-      </div>
-    </>
-  )
+        </>
+    )
 }
