@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function App() {
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const firstRender = useRef(true);
     const [input, setInput] = useState('');
     const [tasks, setTasks] = useState<string[]>([]);
     const [error, setError] = useState('');
@@ -17,6 +20,16 @@ export default function App() {
         }
     }, []);
 
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false;
+            return
+        }
+        
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    }, [tasks])
+
     function handleRegister() {
 
         if (!input) return setError('Preencha o campo com a tarefa!');;
@@ -25,8 +38,6 @@ export default function App() {
         setTasks([...tasks, input]);
         setInput('');
         setError('');
-
-        localStorage.setItem('tasks', JSON.stringify([...tasks, input]));
     }
 
     function handleSaveEdit() {
@@ -41,18 +52,16 @@ export default function App() {
         });
         setInput('');
         setError('');
-
-        localStorage.setItem('tasks', JSON.stringify(allTasks));
     }
 
     function handleDelete(item: string) {
         const removeTasks = tasks.filter(task => task !== item);
         setTasks(removeTasks)
-
-        localStorage.setItem('tasks', JSON.stringify(removeTasks));
     }
 
     function handleEdit(item: string) {
+        inputRef.current?.focus();
+
         setInput(item);
 
         setEditTask({
@@ -72,7 +81,7 @@ export default function App() {
                     </div>
                 )}
 
-                <input className="form-control" type="text" placeholder="Digite a tarefa" value={input} onChange={(e) => setInput(e.target.value)} />
+                <input className="form-control" type="text" placeholder="Digite a tarefa" value={input} onChange={(e) => setInput(e.target.value)} ref={inputRef} />
                 <button className="btn btn-primary" onClick={handleRegister}>
                     {editTask.enabled ? 'Editar tarefa' : 'Adicionar tarefa'}
                 </button>
