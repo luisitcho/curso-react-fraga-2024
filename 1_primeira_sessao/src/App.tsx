@@ -92,7 +92,7 @@ export default function App() {
                     <strong>Total de <span>{totalTasks}</span> <span>{totalTasks > 1 ? 'tarefas' : 'tarefa'}</span></strong>
                 </p>
 
-                {tasks && (
+                {tasks.length > 0 && (
                     <ul className="p-0 m-0">
                         {tasks.map((item, index) => (
                             <li key={index} className="d-flex align-items-center p-2 mb-1" style={{ gap: 10 }}>
