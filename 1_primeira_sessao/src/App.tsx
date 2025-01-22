@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
     const [input, setInput] = useState('');
@@ -9,6 +9,14 @@ export default function App() {
         task: ''
     });
 
+    useEffect(() => {
+        const tasksSaved = localStorage.getItem('tasks');
+
+        if (tasksSaved) {
+            setTasks(JSON.parse(tasksSaved));
+        }
+    }, []);
+
     function handleRegister() {
 
         if (!input) return setError('Preencha o campo com a tarefa!');;
@@ -17,6 +25,8 @@ export default function App() {
         setTasks([...tasks, input]);
         setInput('');
         setError('');
+
+        localStorage.setItem('tasks', JSON.stringify([...tasks, input]));
     }
 
     function handleSaveEdit() {
@@ -32,11 +42,14 @@ export default function App() {
         setInput('');
         setError('');
 
+        localStorage.setItem('tasks', JSON.stringify(allTasks));
     }
 
     function handleDelete(item: string) {
         const removeTasks = tasks.filter(task => task !== item);
         setTasks(removeTasks)
+
+        localStorage.setItem('tasks', JSON.stringify(removeTasks));
     }
 
     function handleEdit(item: string) {
@@ -51,7 +64,6 @@ export default function App() {
     return (
         <>
             <div className="container">
-
                 <h1>Lista de tarefas</h1>
                 <hr />
                 {error && (
