@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 
 export default function App() {
 
@@ -30,7 +30,7 @@ export default function App() {
 
     }, [tasks])
 
-    function handleRegister() {
+    const handleRegister = useCallback(() => {
 
         if (!input) return setError('Preencha o campo com a tarefa!');;
         if (editTask.enabled) return handleSaveEdit();
@@ -38,7 +38,8 @@ export default function App() {
         setTasks([...tasks, input]);
         setInput('');
         setError('');
-    }
+
+    }, [input, tasks])
 
     function handleSaveEdit() {
         const findIndexTask = tasks.findIndex(task => task === editTask.task);
