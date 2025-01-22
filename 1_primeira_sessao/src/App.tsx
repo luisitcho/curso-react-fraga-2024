@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 export default function App() {
 
@@ -25,7 +25,7 @@ export default function App() {
             firstRender.current = false;
             return
         }
-        
+
         localStorage.setItem('tasks', JSON.stringify(tasks));
 
     }, [tasks])
@@ -70,6 +70,7 @@ export default function App() {
         });
     }
 
+    const totalTasks = useMemo(() => { return tasks.length }, [tasks])
     return (
         <>
             <div className="container">
@@ -85,6 +86,10 @@ export default function App() {
                 <button className="btn btn-primary" onClick={handleRegister}>
                     {editTask.enabled ? 'Editar tarefa' : 'Adicionar tarefa'}
                 </button>
+
+                <p>
+                    <strong>Total de <span>{totalTasks}</span> <span>{totalTasks > 1 ? 'tarefas' : 'tarefa'}</span></strong>
+                </p>
 
                 {tasks && (
                     <ul className="p-0 m-0">
