@@ -1,7 +1,7 @@
-export function Sobre() {
+export function Contato() {
     return (
         <>
-            <h1>Página sobre</h1>
+            <h1>Contato</h1>
             <hr />
         </>
     )
