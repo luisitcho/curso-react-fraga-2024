@@ -6,7 +6,7 @@ import { Networks } from './pages/networks';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Home /> },
-  { path: '/adim', element: <Admin /> },
+  { path: '/admin', element: <Admin /> },
   { path: '/login', element: <Login /> },
   { path: '/networks', element: <Networks /> },
 ]);

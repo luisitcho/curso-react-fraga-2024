@@ -1,18 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import logo from "/logo.png";
 import { Input } from "../../components/Input";
 import { useState, FormEvent } from "react";
 
 import { auth } from "../../services/firebaseConnection";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
         console.log(email)
+
+        if (email === '' || password === '') {
+            alert("Preencha todos os campos");
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password).then(() => {
+            navigate("/admin", { replace: true }); // redireciona para a admin/
+            console.log("Login realizado com sucesso");
+            // window.location.href = "/dashboard"; // redireciona para a dashboard
+
+        }).catch((error) => {
+            console.log(error);
+            console.log("Falha ao realizar login");
+        });
     }
 
     return (
