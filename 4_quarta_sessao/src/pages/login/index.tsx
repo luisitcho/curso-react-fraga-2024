@@ -4,6 +4,8 @@ import logo from "/logo.png";
 import { Input } from "../../components/Input";
 import { useState, FormEvent } from "react";
 
+import { auth } from "../../services/firebaseConnection";
+
 export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
