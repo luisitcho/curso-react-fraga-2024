@@ -14,7 +14,6 @@ export function Login() {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        console.log(email)
 
         if (email === '' || password === '') {
             alert("Preencha todos os campos");
@@ -23,12 +22,9 @@ export function Login() {
 
         signInWithEmailAndPassword(auth, email, password).then(() => {
             navigate("/admin", { replace: true }); // redireciona para a admin/
-            console.log("Login realizado com sucesso");
-            // window.location.href = "/dashboard"; // redireciona para a dashboard
 
         }).catch((error) => {
             console.log(error);
-            console.log("Falha ao realizar login");
         });
     }
 
