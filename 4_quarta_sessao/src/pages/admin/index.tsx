@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { BiTargetLock } from "react-icons/bi";
+import { Footer } from "../../components/Footer";
 export function Admin() {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
@@ -45,6 +46,8 @@ export function Admin() {
                     </article>
                 </fieldset>
             </form>
+
+            <Footer />
         </div>
     )
 }
