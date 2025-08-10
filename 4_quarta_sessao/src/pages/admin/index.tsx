@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Footer } from "../../components/Footer";
 import { FiTrash } from "react-icons/fi";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    onderBy,
+    doc,
+    deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../services/firebaseConnection";
 
 export function Admin() {
     const [name, setName] = useState("");
@@ -10,8 +20,38 @@ export function Admin() {
     const [colorText, setColorText] = useState("#f1f1f1");
     const [colorBackground, setColorBackground] = useState("#121212");
 
+    function handleRegister(event: FormEvent<HTMLDivElement>) {
+        event.preventDefault();
+
+        if (name == "" || link == "") {
+            console.log("preencher");
+            return;
+        }
+
+        addDoc(collection(db, "links"), {
+            name: name,
+            link: link,
+            color: colorText,
+            background: colorBackground,
+            created: new Date(),
+        })
+            .then(() => {
+                setName("");
+                setLink("");
+                console.log("cadastrado com sucesso!");
+            })
+            .catch((error) => {
+                console.log("erro ao cadastrar as informações!", error);
+            });
+
+        console.log("teste");
+    }
+
     return (
-        <div className="flex items-center flex-col min-h-screen pb-7 px-2">
+        <div
+            className="flex items-center flex-col min-h-screen pb-7 px-2"
+            onSubmit={handleRegister}
+        >
             <Header />
 
             <form className="flex flex-col my-8 w-full max-w-xl">
