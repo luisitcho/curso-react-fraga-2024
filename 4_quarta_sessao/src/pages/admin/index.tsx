@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Footer } from "../../components/Footer";
@@ -11,14 +11,50 @@ import {
     onderBy,
     doc,
     deleteDoc,
+    orderBy,
 } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
+
+type linkProps = {
+    id: string;
+    name: string;
+    link: string;
+    color: string;
+    background: string;
+};
 
 export function Admin() {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
     const [colorText, setColorText] = useState("#f1f1f1");
     const [colorBackground, setColorBackground] = useState("#121212");
+
+    const [links, setLinks] = useState<linkProps[]>([]);
+
+    useEffect(() => {
+        const linksRef = collection(db, "links");
+        const queryRef = query(linksRef, orderBy("created", "asc"));
+
+        const unsub = onSnapshot(queryRef, (snapshot) => {
+            const list: linkProps[] = [];
+
+            snapshot.forEach(function (doc) {
+                list.push({
+                    id: doc.id,
+                    name: doc.data().name,
+                    link: doc.data().link,
+                    color: doc.data().color,
+                    background: doc.data().background,
+                });
+            });
+
+            setLinks(list);
+        });
+
+        return () => {
+            unsub();
+        };
+    }, []);
 
     function handleRegister(event: FormEvent<HTMLDivElement>) {
         event.preventDefault();
@@ -43,8 +79,6 @@ export function Admin() {
             .catch((error) => {
                 console.log("erro ao cadastrar as informações!", error);
             });
-
-        console.log("teste");
     }
 
     return (
