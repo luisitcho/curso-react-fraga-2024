@@ -8,10 +8,9 @@ import {
     collection,
     onSnapshot,
     query,
-    onderBy,
+    orderBy,
     doc,
     deleteDoc,
-    orderBy,
 } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
 
@@ -33,7 +32,7 @@ export function Admin() {
 
     useEffect(() => {
         const linksRef = collection(db, "links");
-        const queryRef = query(linksRef, orderBy("created", "asc"));
+        const queryRef = query(linksRef, orderBy("created", "desc"));
 
         const unsub = onSnapshot(queryRef, (snapshot) => {
             const list: linkProps[] = [];
