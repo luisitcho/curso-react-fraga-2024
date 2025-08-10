@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
@@ -10,6 +10,26 @@ export function Networks() {
     const [linkedin, setLinkedin] = useState("");
     const [github, setGithub] = useState("");
     const [instagram, setInstagram] = useState("");
+
+    useEffect(() => {
+        (function loadLinks() {
+            const docRef = doc(db, "social", "link");
+
+            getDoc(docRef)
+                .then((snapshot) => {
+                    const data = snapshot.data();
+
+                    if (data) {
+                        setLinkedin(data.linkedin ?? "");
+                        setGithub(data.github ?? "");
+                        setInstagram(data.instagram ?? "");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        })();
+    }, []);
 
     function handleRegister(event: FormEvent) {
         event?.preventDefault();
