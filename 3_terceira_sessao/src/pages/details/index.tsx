@@ -21,7 +21,7 @@ export function Details() {
 
     useEffect(() => {
         try {
-            fetch(`https://api.coincap.io/v2/assets/${cripto}`)
+            fetch(`/api/coins/${cripto}`)
                 .then((response) => {
                     if (!response.ok) {
                         navigate('/');
