@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Nome } from "../nome";
+import { UserContext } from "../../contexts/user";
 
-type AlunosProps = {
-    aluno: string;
-};
-
-export function Alunos({ aluno }: AlunosProps) {
-    const [nome, setNome] = useState("Peppa");
-
+export function Alunos() {
+    const { aluno } = useContext(UserContext);
     return (
         <>
             <h2>Alunos: {aluno}</h2>
             <hr />
-            <Nome nome={nome} mudarNome={(nome: string) => setNome(nome)} />
+            <Nome />
         </>
     );
 }

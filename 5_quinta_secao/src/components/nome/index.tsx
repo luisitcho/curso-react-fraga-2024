@@ -1,14 +1,13 @@
-type NomeProps = {
-    nome: string;
-    mudarNome: (nome: string) => void;
-};
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user";
 
-export function Nome({ nome, mudarNome }: NomeProps) {
+export function Nome() {
+    const { nome } = useContext(UserContext);
+
     return (
         <>
             <h3>Nome: {nome}</h3>
             <br />
-            <button onClick={() => mudarNome("Luisitcho")}>Mudar nome</button>
         </>
     );
 }
