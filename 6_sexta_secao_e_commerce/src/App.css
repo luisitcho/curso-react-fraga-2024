@@ -1,44 +1,71 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-}
-
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-}
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+/* Variáveis CSS para Light Mode */
+:root {
+    --color-bg: #f8fafc; /* Fundo principal */
+    --color-surface: #ffffff; /* Superfícies (cards, containers) */
+    --color-border: #e2e8f0; /* Bordas */
+    --color-text: #0f172a; /* Texto principal */
+    --color-text-muted: #64748b; /* Texto secundário */
+    --color-accent: #3b82f6; /* Destaques (links, botões) */
+    --color-accent-hover: #2563eb; /* Hover de destaque */
+    --color-danger: #ef4444; /* Erros */
+    --color-success: #22c55e; /* Sucesso */
+    --color-warning: #facc15; /* Avisos */
 }
 
-@keyframes logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Variáveis CSS para Dark Mode */
+.dark {
+    --color-bg: #0f172a;
+    --color-surface: #1e293b;
+    --color-border: #334155;
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-accent: #3b82f6;
+    --color-accent-hover: #2563eb;
+    --color-danger: #ef4444;
+    --color-success: #22c55e;
+    --color-warning: #facc15;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    a:nth-of-type(2) .logo {
-        animation: logo-spin infinite 20s linear;
-    }
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 .card {
-    padding: 2em;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
 }
 
-.read-the-docs {
-    color: #888;
+button {
+    background-color: var(--color-accent);
+    color: #fff;
+}
+
+button:hover {
+    background-color: var(--color-accent-hover);
+}
+
+@layer components {
+    .container {
+        @apply w-full px-[15px] mx-auto;
+
+        @screen sm {
+            max-width: 540px;
+        }
+        @screen md {
+            max-width: 720px;
+        }
+        @screen lg {
+            max-width: 960px;
+        }
+        @screen xl {
+            max-width: 1140px;
+        }
+        @screen 2xl {
+            max-width: 1320px;
+        }
+    }
 }
