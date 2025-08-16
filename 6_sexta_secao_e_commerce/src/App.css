@@ -17,7 +17,7 @@
 
 /* Variáveis CSS para Dark Mode */
 .dark {
-    --color-bg: #0f172a;
+    --color-bg: #101828;
     --color-surface: #1e293b;
     --color-border: #334155;
     --color-text: #f1f5f9;
@@ -39,14 +39,14 @@ body {
     border: 1px solid var(--color-border);
 }
 
-button {
+/* button {
     background-color: var(--color-accent);
     color: #fff;
 }
 
 button:hover {
     background-color: var(--color-accent-hover);
-}
+} */
 
 @layer components {
     .container {
