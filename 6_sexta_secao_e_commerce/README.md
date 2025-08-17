@@ -1,5 +1,10 @@
 # React + TypeScript + Vite
 
+JSON Server
+```
+npx json-server --watch db/products.json
+```
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
