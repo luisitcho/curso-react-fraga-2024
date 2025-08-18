@@ -25,7 +25,6 @@ export function Home() {
         })();
     }, []);
 
-    console.log(products);
     return (
         <div className="home">
             <main className="w-full px-4 mx-auto">
