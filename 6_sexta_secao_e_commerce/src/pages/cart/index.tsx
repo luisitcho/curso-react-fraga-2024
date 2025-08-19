@@ -3,7 +3,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 export function Cart() {
-    const { cart } = useContext(CartContext);
+    const { cart, total, addItemToCart, removeItemToCart } = useContext(CartContext);
 
     console.log("Cart items:", cart);
     return (
@@ -32,11 +32,14 @@ export function Cart() {
                             <strong>Preço: {item.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}</strong>
 
                             <div className="flex items-center justify-center gap-3">
-                                <button className="bg-slate-600 w-[25px] h-[25px] cursor-pointer px-2 rounded text-white font-medium flex items-center justify-center">
+                                <button className="bg-slate-600 w-[25px] h-[25px] cursor-pointer px-2 rounded text-white font-medium flex items-center justify-center"
+                                    onClick={() => removeItemToCart(item)}
+                                >
                                     -
                                 </button>
                                 {item.amount}
-                                <button className="bg-slate-600 w-[25px] h-[25px] cursor-pointer px-2 rounded text-white font-medium flex items-center justify-center">
+                                <button className="bg-slate-600 w-[25px] h-[25px] cursor-pointer px-2 rounded text-white font-medium flex items-center justify-center"
+                                    onClick={() => addItemToCart(item)}>
                                     +
                                 </button>
                             </div>
@@ -49,7 +52,7 @@ export function Cart() {
 
                     {cart.length > 0 && (
                         <p className="font-bold mt-4">
-                            Total: {cart.reduce((acc, item) => acc + item.total, 0).toLocaleString('pt-BR', { style: "currency", currency: "BRL" })}
+                            Total: {total}
                         </p>
                     )}
                 </div>

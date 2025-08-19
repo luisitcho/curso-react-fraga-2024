@@ -12,7 +12,7 @@ export type ProductProps = {
 };
 
 export function Home() {
-    const { adItemToCart } = useContext(CartContext);
+    const { addItemToCart } = useContext(CartContext);
     const [products, setProducts] = useState<ProductProps[]>([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export function Home() {
     }, []);
 
     function handleAddToCart(product: ProductProps) {
-        adItemToCart(product);
+        addItemToCart(product);
     }
 
     return (
