@@ -2,8 +2,27 @@ body #root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
 
-footer.footer {
-    margin-top: auto;
+    main {
+        padding: 10px 0px 50px 0px;
+    }
+
+    footer.footer {
+        margin-top: auto;
+        background: #161f27;
+        color: #fafafa;
+        padding: 20px 0;
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
 }
