@@ -2,22 +2,22 @@ import { ReactNode, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import { Navigate } from 'react-router-dom'
 
-interface PrivateProps{
-  children: ReactNode
+interface PrivateProps {
+    children: ReactNode
 }
 
 
 export function Private({ children }: PrivateProps): any {
-  const { signed, loadingAuth } = useContext(AuthContext);
+    const { signed, loadingAuth } = useContext(AuthContext);
 
-  if(loadingAuth){
-    return <div></div>
-  }
+    if (loadingAuth) {
+        return <div></div>
+    }
 
-  if(!signed){
-    return <Navigate to="/login" />
-  }
+    if (!signed) {
+        return <Navigate to="/login" />
+    }
 
-  
-  return children;
+
+    return children;
 }
